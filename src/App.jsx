@@ -4,6 +4,7 @@ import Register from "./pages/Register";
 import Verify from "./pages/Verify";
 import Login from "./pages/Login";
 import About from "./pages/About";
+import ForgotPassword from "./pages/ForgotPassword"; // <-- import it
 
 
 import Navbar from "./components/Navbar";
@@ -18,6 +19,7 @@ function App() {
         <Route path="/verify" element={<Verify />} />
         <Route path="/login" element={<Login />} />
         <Route path="/About" element= {<About />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} /> {/* <-- new route */}
       </Routes>
     </BrowserRouter>
   );
