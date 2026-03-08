@@ -1,19 +1,29 @@
+// src/services/api.js
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://127.0.0.1:8000/api/",
+  baseURL: "http://localhost/api/",
 });
 
-// 🔥 Attach access token to every request
+// Interceptor: attach token only if endpoint is protected
 API.interceptors.request.use((req) => {
-  const token = localStorage.getItem("access");
+  // Public endpoints that should NOT have token
+  const publicEndpoints = [
+    "accounts/register/",
+    "accounts/verify-otp/",
+    "accounts/login/",
+    "accounts/forgot-password/",
+  ];
 
-  if (token) {
-    req.headers.Authorization = `Bearer ${token}`;
+  const isPublic = publicEndpoints.some((url) => req.url.includes(url));
+  if (!isPublic) {
+    const token = localStorage.getItem("access");
+    if (token) {
+      req.headers.Authorization = `Bearer ${token}`;
+    }
   }
 
   return req;
 });
 
 export default API;
-
